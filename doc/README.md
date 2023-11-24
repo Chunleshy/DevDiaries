@@ -44,8 +44,8 @@ The pro developer must be able to make comment on other people's post  <br>
 
 
 # Acceptance Criteria user story 6
-(As an **anonymous reader**. I want to **read articles online** so I can **update my tech knowledge** )<br>
-The anonymous reader must be able to acess the blog using the correct url<br>
+(As an **anonymous reader**. I want to **read articles online** so I can **update my tech knowledge**)<br>
+The anonymous reader must be able to acess the blog using the correct link<br>
 The anonymous reader must be able to reader information at the home page<br>
 The anonymous reader must be able to reader other general articles on the blog page<br>
 
@@ -55,7 +55,7 @@ The anonymous reader must be able to reader other general articles on the blog p
 # Mis-User Stories
 As a **anonymous reader**, I want to **make an abusive comment on people's blog** so I can **proke them to angry** <br>
 As a **bloger**, I want to **delete other user's post** so I can **violate user's privacy and ownership right** <br>
-As a **bloger**, I want to **inject malicious script command in the comment box** so I can **attack the blog database** <br>
+As a **bloger**, I want to **inject malicious script command in the comment box** so I can **gain unauthorized access to the database** <br>
 
 
 ## Mitigation Criteria for mis-user story 1
