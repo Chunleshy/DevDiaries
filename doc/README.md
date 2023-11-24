@@ -70,16 +70,10 @@ The bloger must not be able access delete button on ther user account<br>
 The bloger must not be able to edit other usrer article<br>
 
 
-## Mitigation Criteria for mis-user story  5
+## Mitigation Criteria for mis-user story  3
 strong access controls and authentication mechanisms must be implemented to prevent unauthorized access to website
 The blogger must login with valid credentials<br>
 The bloger must not be able to send malicios code through the comment<br>
 All the text in the text box must be render as plain text<br>
-escape html must be enforced for all the text boxes<br>
-
-
-
-
-
-This App is design with Docker, Django and Python by Olukunle Amoo
+Escape html must be enforced for all the text boxes<br>
 
