@@ -70,7 +70,7 @@ For help getting started with Django development, view the
 [online documentation](https://docs.djangoproject.com/en/4.2/)), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
-This App is Licensed under [MIT License.](https://github.com/Chunleshy/DevDiaries1/blob/main/LICENSE)
+This App is Licensed under [MIT License.](https://github.com/Chunleshy/DevDiaries/blob/main/LICENSE)
 
 
 
