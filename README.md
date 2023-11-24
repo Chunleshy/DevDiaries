@@ -26,7 +26,7 @@ Make sure you have the following installed:
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/Chunleshy/DevDiaries1.git
+git clone https://github.com/Chunleshy/DevDiaries.git
 cd DevDiaries1
 ```
 ### Create and Activate Virtual Environment
