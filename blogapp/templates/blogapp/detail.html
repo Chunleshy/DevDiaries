@@ -1,0 +1,81 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Blog Detail - Django Blog</title>
+{% endblock title %}
+
+
+
+
+{% block content %}
+
+
+
+<div class="col-lg-8" style="margin-top: 50px">
+    <!-- Post content-->
+    <article>
+        <!-- Post header-->
+        <header class="mb-4">
+            <!-- Post title-->
+            <h1 class="fw-bolder mb-1">{{blog.title}}!</h1>
+            <!-- Post meta content-->
+            <div class="text-muted fst-italic mb-2">Posted on {{blog.created}}, 2022 by Clint</div>
+            <!-- Post categories-->
+            
+            {% comment %} {% for cat in blog.category.all %}
+            <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{cat}}</a>
+            {% endfor %} {% endcomment %}
+                
+            
+          
+            
+          
+
+            
+
+        </header>
+        <!-- Preview image figure-->
+        <figure class="mb-4"><img class="img-fluid rounded" src="{{blog.image.url}}" alt="..." /></figure>
+        <!-- Post content-->
+        <section class="mb-5">
+            <p class="fs-5 mb-4">{{blog.body | linebreaks }}</p>
+
+        </section>
+    </article>
+    <!-- Comments section-->
+
+
+    <section class="mb-5">
+        <div class="card bg-light">
+            <div class="card-body" id = "commentContainer">
+                <!-- Comment form-->
+                <form class="mb-4" id="commentForm" method="POST">
+                    {% csrf_token %}
+                    <textarea  id="commentBox" class="form-control" rows="3" placeholder="Join the discussion and leave a comment!" required></textarea>
+                    
+                    <button type = "submit" class = "btn btn-primary" style="width: 100%; margin-top: 10px">Submit</button>
+                </form>
+              
+                <!-- Single comment-->
+                {% comment %} {% for comment in comments %}
+
+                <div class="d-flex" id="commentSection">
+                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
+                    <div class="ms-3">
+                        <div class="fw-bold">{{comment.user}}</div>
+                        {{comment.body}}
+                    </div>
+                </div>
+                
+                {% endfor %} {% endcomment %}
+
+                
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+{% endblock content %}

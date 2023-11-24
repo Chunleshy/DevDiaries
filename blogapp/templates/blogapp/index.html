@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+
+<title>Blog Home - Django Blog</title>
+
+{% endblock title %}
+
+
+
+{% block content %}
+
+{% include 'blogapp/header.html' %}
+
+<!-- Blog entries-->
+<div class="col-lg-8">
+  
+    <div class="row">
+        
+        {% for blog in blogs %}
+        
+        
+
+        <div class="col-lg-6">
+            <!-- Blog post-->
+            <div class="card mb-4">
+                <a href="#!"><img class="card-img-top" src="{{blog.image.url}}" alt="..." /></a>
+                <div class="card-body">
+                    <div class="small text-muted">{{blog.publish}}</div>
+                    <h2 class="card-title h4">{{blog.title}}</h2>
+                    <p class="card-text">{{blog.body | truncatechars:"100"}}</p>
+                    <a class="btn btn-primary" href="{% url 'detail' pk=blog.id slug=blog.slug %}">Read more →</a>
+                </div>
+            </div>
+            
+        </div>
+        {% endfor %}
+
+      
+    </div>
+  
+
+    
+
+</div>
+
+
+{% endblock content %}
