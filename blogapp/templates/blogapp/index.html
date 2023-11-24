@@ -16,10 +16,10 @@
 <div class="col-lg-8">
   
     <div class="row">
-        
+
         {% for blog in blogs %}
-        
-        
+
+
 
         <div class="col-lg-6">
             <!-- Blog post-->
@@ -32,7 +32,7 @@
                     <a class="btn btn-primary" href="{% url 'detail' pk=blog.id slug=blog.slug %}">Read more →</a>
                 </div>
             </div>
-            
+
         </div>
         {% endfor %}
 

@@ -22,17 +22,15 @@
             <!-- Post meta content-->
             <div class="text-muted fst-italic mb-2">Posted on {{blog.created}}, 2022 by Clint</div>
             <!-- Post categories-->
-            
+
             {% comment %} {% for cat in blog.category.all %}
             <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{cat}}</a>
             {% endfor %} {% endcomment %}
-                
-            
-          
-            
-          
 
-            
+
+
+
+
 
         </header>
         <!-- Preview image figure-->
@@ -53,10 +51,10 @@
                 <form class="mb-4" id="commentForm" method="POST">
                     {% csrf_token %}
                     <textarea  id="commentBox" class="form-control" rows="3" placeholder="Join the discussion and leave a comment!" required></textarea>
-                    
+
                     <button type = "submit" class = "btn btn-primary" style="width: 100%; margin-top: 10px">Submit</button>
                 </form>
-              
+
                 <!-- Single comment-->
                 {% comment %} {% for comment in comments %}
 
@@ -67,10 +65,10 @@
                         {{comment.body}}
                     </div>
                 </div>
-                
+
                 {% endfor %} {% endcomment %}
 
-                
+
             </div>
         </div>
     </section>
