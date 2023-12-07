@@ -10,6 +10,35 @@
 
 {% block content %}
 
+
+
+<style>
+
+    .img-container{
+        width: 100%;
+        height: 200px;
+        position: relative
+    }
+
+    .img-container .badge{
+        position: absolute;
+        top: 10px;
+        left: 10px
+    }
+
+    .img-container .badge i{
+        font-size: 25px
+    }
+
+    .img-container img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover
+    }
+
+</style>
+
+
 {% include 'blogapp/header.html' %}
 
 <!-- Blog entries-->
@@ -17,22 +46,41 @@
   
     <div class="row">
 
+        
+        {% if msg %}
+
+        <p>{{msg}}</p>
+            
+        {% endif %}
+            
+        
         {% for blog in blogs %}
-
-
+        
+        
 
         <div class="col-lg-6">
             <!-- Blog post-->
             <div class="card mb-4">
-                <a href="#!"><img class="card-img-top" src="{{blog.image.url}}" alt="..." /></a>
+                <div class="img-container">
+                    
+                    {% if blog.author.proficiency %}
+
+                    <span class="badge text-bg-dark"><i class="bi bi-person-check"></i></span>
+                        
+                    {% endif %}
+                        
+                    
+                    <img src="{{blog.thumbnail.url}}" alt="">
+                </div>
+                {% comment %} <a href="#!"><img class="card-img-top" src="{{blog.thumbnail.url}}" alt="..." /></a> {% endcomment %}
                 <div class="card-body">
-                    <div class="small text-muted">{{blog.publish}}</div>
+                    <span class="badge text-bg-dark">{{blog.category}}</span>
                     <h2 class="card-title h4">{{blog.title}}</h2>
-                    <p class="card-text">{{blog.body | truncatechars:"100"}}</p>
+                    <p class="card-text">{{blog.body | safe | truncatechars:"100"}}</p>
                     <a class="btn btn-primary" href="{% url 'detail' pk=blog.id slug=blog.slug %}">Read more →</a>
                 </div>
             </div>
-
+            
         </div>
         {% endfor %}
 
@@ -44,5 +92,7 @@
 
 </div>
 
+
+{% include 'blogapp/sidebar.html' %}
 
 {% endblock content %}

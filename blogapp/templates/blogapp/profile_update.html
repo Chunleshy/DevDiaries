@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<style>
+    form{
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px 20px 20px 20px !important;
+        margin: 20px auto !important
+    }
+
+    form input{
+        height: 40px !important;
+    }
+
+    form h4{
+        margin-bottom: 20px !important;
+        text-align: center !important
+    }
+
+    form p{
+        text-align: center
+    }
+
+    form small{
+        color: red
+    }
+
+
+
+</style>
+
+
+
+<form action="" method="POST" enctype="multipart/form-data"> # enctype allows any type of file to be uploaded
+
+    {% csrf_token %}
+
+    <h4>Update Profile Form</h4>
+    <br>
+
+    <div class="row g-3">
+
+
+        {% for field in form  %}
+
+    
+    {% if field.errors  %}
+
+    <div class="col-md-6">
+        <label for="exampleFormControlInput1" class="form-label"><strong>{{field.label}}</strong></label>
+        {{field}}
+        <small>{{field.errors}}</small>
+      </div>
+
+
+
+    
+    
+      {% else %}
+
+
+      <div class="mb-3 col-md-6">
+        <label for="exampleFormControlInput1" class="form-label"><strong>{{field.label}}</strong></label>
+        {{field}}
+      </div>
+
+      
+    {% endif %}
+        
+        
+    {% endfor %}
+
+    <button class="btn btn-primary" style="width: 100%; margin-top: 10px">Update profile</button>
+
+    </div>
+
+    
+    
+        
+
+</form>
+    
+{% endblock content %}
+    

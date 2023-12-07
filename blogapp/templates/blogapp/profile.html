@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<style>
+    .icons{
+        width: auto;
+        padding: 10px 10px 10px 10px;
+    }
+
+    .icons i{
+        font-size: 20px;
+        cursor: pointer;
+        margin: 5px 5px 5px 5px
+    }
+
+    .icons a{
+        color: black;
+    }
+
+    .actions a i{
+      font-size: 18px !important;
+    }
+</style>
+
+
+
+  
+
+<div class="container">
+
+{% if del %}
+<br><br>
+<div class="alert alert-danger" role="alert">
+  <p>Do you want to delet the article <strong>{{post.title}}?</strong> </p>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <span>
+      <a href="{% url 'profile' %}" class="btn btn-secondary">Cancel</a>
+      <a href=""><button class="btn btn-danger">Delete</button></a>
+    </span>
+  </form>
+</div>
+  
+{% endif %}
+
+    <div class="main-body">
+
+        <br>
+    
+          <!-- Breadcrumb -->
+          
+          <!-- /Breadcrumb -->
+    
+          <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex flex-column align-items-center text-center">
+                    
+                    
+                    {% if profile.picture %}
+                    <img src="{{profile.picture.url}}" alt="Admin" class="rounded-circle" width="150">
+                    {% else %}
+                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                    {% endif %}
+                        
+                    
+                    <div class="mt-3">
+                        
+                        {% if profile.proficiency %}
+                        <h4>~@{{profile.username}}<span><i class="bi bi-patch-check-fill" style="color: #6F00FF"></i></span></h4>
+
+                        {% else %}
+                        <h4>~@{{profile.username}}</h4>
+                            
+                        {% endif %}
+                            
+                    
+
+                      
+                      <p class="text-secondary mb-1">{{profile.role}}</p>
+                      <p class="text-muted font-size-sm">{{profile.location}}</p>
+                      <p class="text-muted font-size-sm">
+                       {{profile.bio}}
+                      </p>
+                      <div class="icons">
+                        
+                        {% if profile.linkedin_url %}
+                        <a href=""><i class="bi bi-linkedin"></i></a>
+                        {% endif %}
+
+                        
+                        {% if profile.twitter_url %}
+                        <a href=""><i class="bi bi-twitter"></i></a>
+                        {% endif %}
+
+                        
+                        {% if profile.github_url %}
+                        <a href=""><i class="bi bi-github"></i></a>
+                        {% endif %}
+                            
+                            
+                            
+                        
+                        
+                        
+                      </div>
+
+                    
+
+                        <p><strong>{{follow_count}} follower{{ follow_count|pluralize}}</strong></p>
+                
+                        {% if follow %}
+                            {% if request.user.is_authenticated %}
+                                {% if following %}
+                                  <form action="" method='POST'>
+                                    {% csrf_token %}
+                                    <button class="btn btn-outline-primary btn-lg">Following</button>
+                                  </form>
+                                  
+                                {% else %}
+                                <form action="" method='POST'>
+                                  {% csrf_token %}
+                                  <button class="btn btn-primary btn-lg">Follow</button>
+                                </form>
+                                    
+                                {% endif %}
+                            {% endif %}
+                        {% else %}
+                            <p>Login to follow this profile</p>
+                        {% endif %}
+       
+                    
+                      
+                        
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+            <div class="col-md-8">
+              <div class="card mb-3">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">First Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                      {{profile.first_name}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Last Name</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{profile.last_name}}
+                    </div>
+                  </div>
+                  <hr>
+                 
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Location</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{profile.location}}
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Nationality</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">
+                        {{profile.nationality}}
+                    </div>
+                  </div>
+                  <hr>
+                 
+                  <div class="row">
+                    <div class="col-sm-12">
+                        
+                        {% if request.user == profile.user %}
+                        <a class="btn btn-info " target="__blank" href="{% url 'update-profile' %}">Edit Profile</a>
+                        {% endif %}
+                            
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              
+              <div class="container">
+                <div class="row">
+
+                  <br></br>
+
+
+                  <h5>Written Articles</h5>
+
+                  <br></br>
+
+
+                  
+                  {% for post in posts %}
+
+                  <div class="col-md-6">
+                    
+                    <div class="card mb-4">
+                      <a href="#!"><img class="card-img-top" src="{{post.thumbnail.url}}" alt="..." /></a>
+                      <div class="card-body">
+                          <div class="small text-muted">{{post.publish}}</div>
+                          <h2 class="card-title h4">{{post.title}}</h2>
+                          <p class="card-text">{{post.body | safe | truncatechars:"100"}}</p>
+                          <a class="btn btn-primary" href="{% url 'detail' pk=post.id slug=post.slug %}">Read more →</a>
+
+                          
+                          {% if request.user == post.author.user %}
+
+                          <span style="float: right" class="actions">
+                            <a href="{% url 'update-post' post.id %}"><i class="bi bi-pen-fill btn btn-primary"></i></a> # cdn delivers icon
+                            <a href="{% url 'delete-post' post.id %}"><i class="bi bi-trash-fill btn btn-danger"></i></a> content delivery network delivers icon
+                          </span>
+                            
+                          {% endif %}
+                            
+
+                          
+                      </div>
+                    </div>
+
+                  </div>
+                    
+                  {% endfor %}
+                    
+                 
+
+                 
+
+
+
+
+                </div>
+              </div>
+
+              
+
+
+            </div>
+
+            
+
+          </div>
+
+        </div>
+    </div>
+
+    
+{% endblock content %}
+    

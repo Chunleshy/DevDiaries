@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles', 
-    'blogapp',
+    'blogapp.apps.BlogappConfig',
+    'core',
+    'django_summernote'
 ]
 
 MIDDLEWARE = [
@@ -121,8 +123,31 @@ STATIC_URL = 'static/'
 MEDIA_URL = 'img/'
 MEDIA_ROOT = BASE_DIR/'media'
 
+# allows to load iframe from same hostname 
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+
+# SUMMERNOTE_THEME = 'bs5'  # Show summernote with Bootstrap4
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'core.CustomUser'
+
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "devdiariesapp@gmail.com"
+EMAIL_HOST_PASSWORD = "bcwr szzi fhnn vdgb "
+
+
+# EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+# EMAIL_HOST_USER = 'b83f2a16824843'
+# EMAIL_HOST_PASSWORD = 'f266e5925d7690'
+# EMAIL_PORT = '2525'

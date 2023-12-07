@@ -1,0 +1,41 @@
+<div class="col-lg-4" style="margin-top: 70px">
+    <!-- Search widget-->
+    <div class="card mb-4">
+        <div class="card-header">Search</div>
+        <div class="card-body">
+
+            <form action="" method="GET">
+
+                <div class="input-group">
+                    <input class="form-control" name="search" type="text" placeholder="Enter search term..." 
+                    aria-label="Enter search term..." aria-describedby="button-search" required/>
+                    <button class="btn btn-primary" id="button-search">Go!</button>
+                </div>
+
+            </form>
+
+            
+
+        </div>
+    </div>
+    <!-- Categories widget-->
+    <div class="card mb-4">
+        <div class="card-header">Categories</div>
+        <div class="card-body">
+            <div class="row">
+                {% for category in categories %}
+                <div class="col-sm-6">
+                    <h6><span class="badge text-bg-dark">{{category}}</span></h6>
+                    
+                </div>
+                {% endfor %}
+              
+            </div>
+        </div>
+    </div>
+    <!-- Side widget-->
+    {% comment %} <div class="card mb-4">
+        <div class="card-header">Side Widget</div>
+        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+    </div> {% endcomment %}
+</div>

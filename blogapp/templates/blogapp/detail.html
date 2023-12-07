@@ -1,79 +1,146 @@
-
-{% extends 'base.html' %}
-
-{% block title %}
+{% extends 'base.html' %} {% block title %}
 <title>Blog Detail - Django Blog</title>
-{% endblock title %}
+{% endblock title %} {% block content %}
 
+<style>
+  .like-btn {
+    padding: 10px 10px 10px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-end;
+    float: right !important;
+  }
 
+  .like-btn small {
+    font-weight: bold;
+  }
 
+  .like-btn i {
+    font-size: 35px !important;
+    cursor: pointer;
+  }
+</style>
 
-{% block content %}
+<div class="col-lg-12" style="margin-top: 50px">
+  <!-- Post content-->
+  <article>
+    <!-- Post header-->
+    <header class="mb-4">
+      <!-- Post title-->
+      
+      {% if blog.author.proficiency %}
+      <h1 class="fw-bolder mb-1">{{blog.title}} - <span class="badge text-bg-dark"><i class="bi bi-person-check"></i></span> </h1>
+      {% else %}
+      <h1 class="fw-bolder mb-1">{{blog.title}}</h1>
+      {% endif %}
+        
+      
+      <!-- Post meta content-->
+      <div class="text-muted fst-italic mb-2">
+        Posted on {{blog.created}}, by
+        <a href="{% url 'view-profile' blog.author.id %}"
+          >{{blog.author.username}}</a
+        >
+      </div>
+      <!-- Post categories-->
 
+      {% comment %} {% for cat in blog.category.all %}
+      <a class="badge bg-secondary text-decoration-none link-light" href="#!"
+        >{{cat}}</a
+      >
+      {% endfor %} {% endcomment %}
 
+      <div class="like-btn">
+        <form action="" method="POST">
+          {% csrf_token %}
+          <button class="btn">
+            {% if like == "yes" %}
 
-<div class="col-lg-8" style="margin-top: 50px">
+            <i class="bi bi-heart-fill"></i>
+
+            {% else %}
+            <i class="bi bi-heart"></i>
+            
+
+            {% endif %}
+          </button>
+
+          {% if like_count > 0 %}
+          <small>{{like_count}} like{{ like_count|pluralize }}</small>
+          {% endif %}
+        </form>
+      </div>
+    </header>
+    <!-- Preview image figure-->
+    <figure class="mb-4">
+      <img class="img-fluid rounded" src="{{blog.thumbnail.url}}" alt="..." />
+    </figure>
     <!-- Post content-->
-    <article>
-        <!-- Post header-->
-        <header class="mb-4">
-            <!-- Post title-->
-            <h1 class="fw-bolder mb-1">{{blog.title}}!</h1>
-            <!-- Post meta content-->
-            <div class="text-muted fst-italic mb-2">Posted on {{blog.created}}, 2022 by Clint</div>
-            <!-- Post categories-->
-
-            {% comment %} {% for cat in blog.category.all %}
-            <a class="badge bg-secondary text-decoration-none link-light" href="#!">{{cat}}</a>
-            {% endfor %} {% endcomment %}
-
-
-
-
-
-
-        </header>
-        <!-- Preview image figure-->
-        <figure class="mb-4"><img class="img-fluid rounded" src="{{blog.image.url}}" alt="..." /></figure>
-        <!-- Post content-->
-        <section class="mb-5">
-            <p class="fs-5 mb-4">{{blog.body | linebreaks }}</p>
-
-        </section>
-    </article>
-    <!-- Comments section-->
-
-
     <section class="mb-5">
-        <div class="card bg-light">
-            <div class="card-body" id = "commentContainer">
-                <!-- Comment form-->
-                <form class="mb-4" id="commentForm" method="POST">
-                    {% csrf_token %}
-                    <textarea  id="commentBox" class="form-control" rows="3" placeholder="Join the discussion and leave a comment!" required></textarea>
-
-                    <button type = "submit" class = "btn btn-primary" style="width: 100%; margin-top: 10px">Submit</button>
-                </form>
-
-                <!-- Single comment-->
-                {% comment %} {% for comment in comments %}
-
-                <div class="d-flex" id="commentSection">
-                    <div class="flex-shrink-0"><img class="rounded-circle" src="https://dummyimage.com/50x50/ced4da/6c757d.jpg" alt="..." /></div>
-                    <div class="ms-3">
-                        <div class="fw-bold">{{comment.user}}</div>
-                        {{comment.body}}
-                    </div>
-                </div>
-
-                {% endfor %} {% endcomment %}
-
-
-            </div>
-        </div>
+      <p class="fs-5 mb-4">{{blog.body|safe }}</p>
     </section>
+    {% comment %}
+  </article>
+  {% endcomment %}
+  <!-- Comments section-->
+
+  <section class="mb-5">
+    <div class="card bg-light">
+      <div class="card-body" id="commentContainer">
+        <!-- Comment form-->
+
+        {% if request.user.is_authenticated %}
+
+        <form class="mb-4" id="commentForm" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="comment" value="a_comment" />
+          {{form.body}}
+          <button
+            type="submit"
+            class="btn btn-primary"
+            style="width: 100%; margin-top: 10px"
+          >
+            Submit
+          </button>
+        </form>
+
+        {% else %}
+        <p>You have to be logged-in if you want to drop a comment.</p>
+
+        {% endif %}
+
+        <!-- Single comment-->
+
+        {% if comments %}
+
+        <h5>Comments</h5>
+        <br />
+
+        {% for comment in comments %}
+
+        <div class="d-flex" id="commentSection">
+          <div class="flex-shrink-0" style="height: 50px; width: 50px">
+            {% if comment.author.picture %}
+
+            <img
+              class="rounded-circle"
+              style="width: 100%; height: 100%; object-fit: cover"
+              src="{{comment.author.picture.url}}"
+              alt="..."
+            />
+
+            {% endif %}
+          </div>
+          <div class="ms-3">
+            <div class="fw-bold">{{comment.author.username}}</div>
+            {{comment.body}}
+          </div>
+        </div>
+
+        {% endfor %} {% endif %}
+      </div>
+    </div>
+  </section>
 </div>
-
-
-
 {% endblock content %}
