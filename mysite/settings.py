@@ -47,7 +47,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # Whitenoise middleware is used for hosting domain on render.com website
+    # Whitenoise middleware is used for hosting domain on render.com website
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -124,8 +125,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles' # used for online hosting config
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' # online hosting config
+# Static setting used for online hosting config
+STATIC_ROOT = BASE_DIR / 'staticfiles' 
+# online hosting config
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' 
 
 MEDIA_URL = 'img/'
 MEDIA_ROOT = BASE_DIR/'media'
@@ -147,11 +150,23 @@ AUTH_USER_MODEL = 'core.CustomUser'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'devdiariesapp@gmail.com'
+# EMAIL_HOST_PASSWORD = 'zvvn qtfl qhbe sdgg'
+
+EMAIL_HOST = 'live.smtp.mailtrap.io'
+EMAIL_HOST_USER = 'api'
+EMAIL_HOST_PASSWORD = 'b9aa275ba9362a4ffedec161e097b808'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'chunleshy@gmail.com'
-EMAIL_HOST_PASSWORD = 'cxvd dcuv epib sqvb'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'chunleshy@gmail.com'
+# EMAIL_HOST_PASSWORD = 'cxvd dcuv epib sqvb'
 
 
 

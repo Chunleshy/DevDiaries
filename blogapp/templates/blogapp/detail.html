@@ -20,9 +20,35 @@
     font-size: 35px !important;
     cursor: pointer;
   }
+
+
+    .img-container{
+        width: 100%;
+        height: 200px;
+        position: relative
+    }
+
+    .img-container .badge{
+        position: absolute;
+        top: 10px;
+        left: 10px
+    }
+
+    .img-container .badge i{
+        font-size: 25px
+    }
+
+    .img-container img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover
+    }
+
+
+
 </style>
 
-<div class="col-lg-12" style="margin-top: 50px">
+<div class="col-lg-8" style="margin-top: 50px">
   <!-- Post content-->
   <article>
     <!-- Post header-->
@@ -30,9 +56,9 @@
       <!-- Post title-->
       
       {% if blog.author.proficiency %}
-      <h1 class="fw-bolder mb-1">{{blog.title}} - <span class="badge text-bg-dark"><i class="bi bi-person-check"></i></span> </h1>
+      <h1 class="fw-bolder mb-1">{{blog.title | safe }} - <span class="badge text-bg-dark"><i class="bi bi-person-check"></i></span> </h1>
       {% else %}
-      <h1 class="fw-bolder mb-1">{{blog.title}}</h1>
+      <h1 class="fw-bolder mb-1">{{blog.title| safe }}</h1>
       {% endif %}
         
       
@@ -143,4 +169,45 @@
     </div>
   </section>
 </div>
+<div class="col-lg-4" style="margin-top: 70px">
+  <div class="row">
+    <h4>Related Articles</h4>
+    <br>
+    <br>
+    <br>
+
+    {% for blog in blogs %}
+        
+        
+
+    <div class="col-lg-12">
+        <!-- Blog post-->
+        <div class="card mb-4">
+            <div class="img-container">
+                
+                {% if blog.author.proficiency %}
+
+                <span class="badge text-bg-dark"><i class="bi bi-person-check"></i></span>
+                    
+                {% endif %}
+                    
+                
+                <img src="{{blog.thumbnail.url}}" alt="">
+            </div>
+            {% comment %} <a href="#!"><img class="card-img-top" src="{{blog.thumbnail.url}}" alt="..." /></a> {% endcomment %}
+            <div class="card-body">
+                <span class="badge text-bg-dark">{{blog.category}}</span>
+                <h2 class="card-title h4">{{blog.title}}</h2>
+                <p class="card-text">{{blog.body | safe | truncatechars:"100"}}</p>
+                <a class="btn btn-primary" href="{% url 'detail' pk=blog.id slug=blog.slug %}">Read more →</a>
+            </div>
+        </div>
+        
+    </div>
+    {% endfor %}
+
+
+  </div>
+</div>
+
 {% endblock content %}

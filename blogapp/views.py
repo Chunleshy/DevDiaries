@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import Group
 from django.db.models import Q
 from django.utils.text import slugify
 from django.contrib import messages
@@ -23,9 +24,11 @@ def index(request):
             Q(title__icontains=keyword) | Q(category__title__icontains=keyword) |
             Q(body__icontains=keyword) & Q(published=True)
         )
-
-        # If no blogs match the search, set a message indicating no results found
-        if not blogs.exists():
+        
+        # If blogs match the search no action, but if not set a message indicating no results found
+        if  blogs.exists():
+            pass
+        else:
             msg = "There is no article with that keyword"
     else:
         # If no search keyword provided, retrieve all published blogs
@@ -50,7 +53,8 @@ def detail(request, pk, slug):
     
     
     blog = get_object_or_404(Blog, pk=pk, slug=slug) #Get a blog object by their primary key
-    
+    # filter other blogs of the same category exclude the current blog
+    related_blogs = Blog.objects.filter(category__title = blog.category.title).exclude(id=blog.id)
     if request.user.is_authenticated:
         author = Profile.objects.get(user=request.user)
         if blog.likes.filter(id=request.user.id).exists():
@@ -72,7 +76,7 @@ def detail(request, pk, slug):
             if form.is_valid():
                 comment = form.save(commit=False)
                 comment.post = blog  # The blog you are commenting under
-                comment.author = author  # the person that is making comment
+                comment.author = author  # the person that makes comment
                 comment.save()
                 messages.success(request, "Comment added successfully!")
                 return redirect("detail", pk=blog.id, slug=blog.slug)
@@ -80,18 +84,21 @@ def detail(request, pk, slug):
         
         else:
             if request.user.is_authenticated:
-                if blog.likes.filter(id=request.user.id).exists(): # Check if user has logged in and that he has liked the blog before
-                    blog.likes.remove(request.user) #Enable the use to unlike the blog
-                    
+                # Check if user has logged in and that he has liked the blog before
+                if blog.likes.filter(id=request.user.id).exists(): 
+                    #Enable the use to unlike the blog
+                    blog.likes.remove(request.user) 
                 else:
-                    blog.likes.add(request.user) # Enable th euser to like the blog
+                    # Enable the user to like the blog
+                    blog.likes.add(request.user) 
             else:
-                return redirect("signin") # If the user has not logged in
+                # Direct user to login page if the user has not logged in
+                return redirect("signin") 
             
             return redirect("detail", pk=blog.id, slug=blog.slug)
             
-    #print(like)
-    context = {"blog": blog, "form": form, "comments": comments, "like_count": like_count, "like": like}
+    print(like)
+    context = {"blog": blog, "form": form, "blogs": related_blogs,"comments": comments, "like_count": like_count, "like": like} 
     return render(request, "blogapp/detail.html", context)
 
 
@@ -125,17 +132,21 @@ def signup(request):
 
 # View for user login
 def signin(request):
+    # Get the group called authenticated
+    auth_group = Group.objects.get(name='Authenticated')
     # Check if the HTTP request method is POST
     if request.method == 'POST':
         # Retrieve the email and password from the POST request data
         email = request.POST["email"]
         password = request.POST["password"]
         
-        # Authenticate the user using the provided email and password
-        user = authenticate(request, email=email, password=password) # done by abstraction in Django
+        # Authenticate the user using the provided email and password done by  abstraction in Django
+        user = authenticate(request, email=email, password=password) 
         
         # Check if the authentication was successful
         if user is not None:
+            # Add the login user to authenticated group
+            user.groups.add(auth_group)
             # If authentication succeeds, log in the user
             login(request, user)
             
@@ -158,23 +169,36 @@ def signout(request):
 
 def update_profile(request):
     # Fetch the profile associated with the currently logged-in user
-    profile = Profile.objects.get(user=request.user) # Get a profile that belong to logged in user
+    # Get a profile that belong to logged in user
+    profile = Profile.objects.get(user=request.user) 
     
     # Initialize a ProfileForm instance with the current profile details
-    form = ProfileForm(instance=profile) # Fetch the current profile to be updated
-    
+    # Fetch the current profile to be updated
+    form = ProfileForm(instance=profile) 
+    # Get newbies group
+    newbie_group = Group.objects.get(name='Newbies')
+    # Get professional group
+    professional_group = Group.objects.get(name='Professionals')
     # Check if the HTTP request method is POST
     if request.method == 'POST':
         # If the method is POST, populate the form with the submitted data and files
-        form = ProfileForm(request.POST, request.FILES, instance=profile) # Handles all the data in the form
+        # Handles all the data in the form
+        form = ProfileForm(request.POST, request.FILES, instance=profile) 
         
         # Check if the submitted form data is valid
         if form.is_valid():
             # If the form is valid, update the profile
             if int(request.POST['years_of_experience']) > 2:
-                profile = form.save(commit=False) # Save the information temporarily
-                profile.proficiency = True  # Set proficiency to True if years of experience > 2
+                # Save the information temporarily
+                profile = form.save(commit=False) 
+                # Set proficiency to True if years of experience greater than 2
+                profile.proficiency = True 
+                # Add the user that has that profile to the professional group if the years of experince is greater than 2 
+                request.user.groups.add(professional_group) 
             
+            else:
+                # Add the user to newbies group if the user years of experince is less than 3 
+                request.user.groups.add(newbie_group)
             # Save the updated profile
             profile.save() 
             

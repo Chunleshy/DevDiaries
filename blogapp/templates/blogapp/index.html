@@ -75,7 +75,7 @@
                 {% comment %} <a href="#!"><img class="card-img-top" src="{{blog.thumbnail.url}}" alt="..." /></a> {% endcomment %}
                 <div class="card-body">
                     <span class="badge text-bg-dark">{{blog.category}}</span>
-                    <h2 class="card-title h4">{{blog.title}}</h2>
+                    <h2 class="card-title h4">{{blog.title | safe }}</h2>
                     <p class="card-text">{{blog.body | safe | truncatechars:"100"}}</p>
                     <a class="btn btn-primary" href="{% url 'detail' pk=blog.id slug=blog.slug %}">Read more →</a>
                 </div>

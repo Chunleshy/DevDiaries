@@ -1,5 +1,5 @@
 from django.db import models
-# from django.urls import reverse
+from django.urls import reverse
 from django.conf import settings
 
 
@@ -43,7 +43,7 @@ class Blog(models.Model):
     author = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="post", null=True, blank=True)  # Field for the author of the post.
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="post", null=True, blank=True)  # Field for post category.
     published = models.BooleanField(default=False)  # Field indicating if the post has been published.
-    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True)  # Field to store users who liked the post.
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name="blog")  # Field to store users who liked the post.
    
     # Method to return a string representation of the Blog instance (using the title).
     def __str__(self):

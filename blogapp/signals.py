@@ -18,8 +18,8 @@ def update_profile(sender, instance, created, **kwargs):
         pass 
     else:
         # If an existing Profile is updated, update the associated User fields
-        user = instance.user # current profile that you want update with logged in user
-        user.email = instance.email  # instance is profile model here
+        user = instance.user # current profile that you want to update with logged in user
+        user.email = instance.email  # instance of profile model here
         user.username = instance.username
         user.first_name = instance.first_name
         user.last_name = instance.last_name
@@ -27,8 +27,3 @@ def update_profile(sender, instance, created, **kwargs):
 
 
         
-# @receiver(post_save, sender=Blog) 
-# def update_profile(sender, instance, **kwargs):
-#     if instance.validity == 'accepted':
-#         instance.published=True
-#         instance.save()

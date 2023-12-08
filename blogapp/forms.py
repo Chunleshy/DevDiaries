@@ -1,7 +1,7 @@
 # Importing necessary modules or classes
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django_summernote.widgets import SummernoteWidget
+from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from django.contrib.auth import get_user_model
 from .models import Profile, Blog, Category, Comment
 
@@ -44,13 +44,22 @@ class ProfileForm(forms.ModelForm):
     # Define various fields with associated HTML attributes for styling and placeholders
     email = forms.EmailField(widget=forms.EmailInput(attrs={"class": "form-control", "placeholder": "Enter email address"}))
     username = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Enter username"}))
-    # ... (other fields omitted for brevity)
+    first_name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Enter firstname"}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "placeholder": "Enter lasttname"}))
+    picture = forms.ImageField(widget=forms.FileInput(attrs={"class": "form-control", "placeholder": "upload image"}))
+    bio = forms.CharField(widget=forms.Textarea(attrs={"class": "form-control", "placeholder":"Describe yourself"}))
+    location = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "placeholder":"Omaha, Nebraska"}))
+    nationality = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "placeholder":"USA"}))
+    role = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "placeholder":"Aspiring FullStack Developer"}))
     years_of_experience = forms.ChoiceField(choices=YEARS_OF_EXPERIENCE, widget=forms.Select(attrs={"class": "form-control", "placeholder": "Select years of experience"}))
-    # ... (other fields omitted for brevity)
+    # ... (enter social media links)
+    github_url = forms.URLField(required=False, widget=forms.URLInput(attrs={"class": "form-control", "placeholder": "Enter github_url"}))
+    linkedin_url = forms.URLField(required=False, widget=forms.URLInput(attrs={"class": "form-control", "placeholder": "Enter linkedin_url"}))
+    twitter_url = forms.URLField(required=False, widget=forms.URLInput(attrs={"class": "form-control", "placeholder": "Enter twitter_url"}))
 
     class Meta:
         model = Profile
-        exclude = ["user", "proficiency"]
+        exclude = ["user", "proficiency", "follow"]
 
 # Define a form to handle Blog Post creation
 class PostForm(forms.ModelForm):
@@ -60,7 +69,7 @@ class PostForm(forms.ModelForm):
         ("publish", "PUBLISH"),
     ]
 
-    # Define various fields with associated HTML attributes for styling and placeholders
+    # Define various fields with associated HTML attributes for styling and placeholders to create an article
     title = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control", "placeholder": "Enter post title"}))
     body = forms.CharField(widget=SummernoteWidget())  # Using Summernote widget for rich text input
     thumbnail = forms.ImageField(widget=forms.FileInput(attrs={"class": "form-control", "placeholder": "upload image"}))
@@ -77,7 +86,7 @@ class PostForm(forms.ModelForm):
 # Define a form to handle Comments
 class CommentForm(forms.ModelForm):
     # Define a field for comment body with associated HTML attributes for styling and placeholders
-    body = forms.CharField(widget=forms.Textarea(attrs={"class": "form-control", "placeholder":"Drop a comment here", "rows": 4}))
+    body = forms.CharField(widget=forms.Textarea(attrs={"class": "form-control", "placeholder":"Drop your comment here", "rows": 4}))
 
     class Meta:
         model = Comment
