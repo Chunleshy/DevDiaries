@@ -28,7 +28,7 @@ DEBUG = True
 
 # ALLOWED_HOSTS = [https://devdiaries.onrender.com]
 # Setting for domain access on render.com
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost' 'devdiaries.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'devdiaries.onrender.com']
 
 
 # Application definition
