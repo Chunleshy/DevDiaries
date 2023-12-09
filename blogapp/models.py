@@ -19,13 +19,7 @@ class Category(models.Model):
 # Defining a Python class named Blog that inherits from the models.Model class.
 # Django Model 'Blog' representing a blog post.
 class Blog(models.Model):
-    # Choices for post validity status.
-    VALIDITY = [
-        ("pending", "pending"),
-        ("accepted", "accepted"),
-        ("rejected", "rejected")
-    ]
-    
+
     # Choices for post status.
     STATUS = [
         ("publish", "PUBLISH"),

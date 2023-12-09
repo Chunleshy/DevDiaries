@@ -52,7 +52,7 @@ class ProfileForm(forms.ModelForm):
     nationality = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "placeholder":"USA"}))
     role = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "placeholder":"Aspiring FullStack Developer"}))
     years_of_experience = forms.ChoiceField(choices=YEARS_OF_EXPERIENCE, widget=forms.Select(attrs={"class": "form-control", "placeholder": "Select years of experience"}))
-    # ... (enter social media links)
+    # enter social media links
     github_url = forms.URLField(required=False, widget=forms.URLInput(attrs={"class": "form-control", "placeholder": "Enter github_url"}))
     linkedin_url = forms.URLField(required=False, widget=forms.URLInput(attrs={"class": "form-control", "placeholder": "Enter linkedin_url"}))
     twitter_url = forms.URLField(required=False, widget=forms.URLInput(attrs={"class": "form-control", "placeholder": "Enter twitter_url"}))

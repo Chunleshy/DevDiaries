@@ -83,8 +83,9 @@ def detail(request, pk, slug):
         
         
         else:
+            # Check if user has logged in
             if request.user.is_authenticated:
-                # Check if user has logged in and that he has liked the blog before
+                # Check if user has liked the blog before
                 if blog.likes.filter(id=request.user.id).exists(): 
                     #Enable the use to unlike the blog
                     blog.likes.remove(request.user) 

@@ -24,11 +24,11 @@ SECRET_KEY = 'django-insecure-tngto&m#-0-tv@r1hlngq!2in4^#s=+#v08an*x8rejha(ha7t
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-# DEBUG = False
+#DEBUG = False
 
 # ALLOWED_HOSTS = [https://devdiaries.onrender.com]
 # Setting for domain access on render.com
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'devdiaries.onrender.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost' 'devdiaries.onrender.com']
 
 
 # Application definition
@@ -44,10 +44,9 @@ INSTALLED_APPS = [
     'core',
     'django_summernote'
 ]
-
+# Whitenoise middleware is used configure static files in production (hosting domain on render.com website)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # Whitenoise middleware is used for hosting domain on render.com website
     'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -125,9 +124,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR/'static']
 # Static setting used for online hosting config
 STATIC_ROOT = BASE_DIR / 'staticfiles' 
 # online hosting config
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage' 
 
 MEDIA_URL = 'img/'
@@ -150,16 +151,18 @@ AUTH_USER_MODEL = 'core.CustomUser'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'live.smtp.mailtrap.io'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'api'
+EMAIL_HOST_PASSWORD = 'b9aa275ba9362a4ffedec161e097b808'
+# EMAIL_USE_TLS = True
+# EMAIL_USE_SSL = True
+
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_USE_TLS = True
 # EMAIL_PORT = 587
 # EMAIL_HOST_USER = 'devdiariesapp@gmail.com'
 # EMAIL_HOST_PASSWORD = 'zvvn qtfl qhbe sdgg'
-
-EMAIL_HOST = 'live.smtp.mailtrap.io'
-EMAIL_HOST_USER = 'api'
-EMAIL_HOST_PASSWORD = 'b9aa275ba9362a4ffedec161e097b808'
-EMAIL_PORT = 587
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_HOST = 'smtp.gmail.com'
