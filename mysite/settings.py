@@ -150,21 +150,27 @@ AUTH_USER_MODEL = 'core.CustomUser'
 
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'live.smtp.mailtrap.io'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'api'
-EMAIL_HOST_PASSWORD = 'b9aa275ba9362a4ffedec161e097b808'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'live.smtp.mailtrap.io'
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = 'api'
+# EMAIL_HOST_PASSWORD = 'b9aa275ba9362a4ffedec161e097b808'
+
+
+
+
 # EMAIL_USE_TLS = True
 # EMAIL_USE_SSL = True
 
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_USE_TLS = True
-# EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'devdiariesapp@gmail.com'
-# EMAIL_HOST_PASSWORD = 'zvvn qtfl qhbe sdgg'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'devdiariesapp@gmail.com'
+EMAIL_HOST_PASSWORD = 'zvvn qtfl qhbe sdgg'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_USE_TLS = True
 # EMAIL_PORT = 587
