@@ -187,7 +187,7 @@
                     <div class="col-sm-12">
                         
                         {% if request.user == profile.user %}
-                        <a class="btn btn-info " href="{% url 'update-profile' %}">Edit Profile</a>
+                        <a class="btn btn-info " target="__blank" href="{% url 'update-profile' %}">Edit Profile</a>
                         {% endif %}
                             
                     </div>

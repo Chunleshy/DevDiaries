@@ -49,9 +49,7 @@ def index(request):
 
 # View for displaying the details of a specific blog
 def detail(request, pk, slug):
-    
-    
-    
+
     blog = get_object_or_404(Blog, pk=pk, slug=slug) #Get a blog object by their primary key
     # filter other blogs of the same category exclude the current blog
     related_blogs = Blog.objects.filter(category__title = blog.category.title).exclude(id=blog.id)
@@ -167,7 +165,7 @@ def signout(request):
     logout(request)
     return redirect("index")
 
-
+@login_required(login_url='signin')
 def update_profile(request):
     # Fetch the profile associated with the currently logged-in user
     # Get a profile that belong to logged in user

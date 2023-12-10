@@ -30,7 +30,7 @@ DEBUG = True
 # Setting for domain access on render.com
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'devdiaries.onrender.com']
 
-
+SESSION_COOKIE_HTTPONLY = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -156,11 +156,8 @@ AUTH_USER_MODEL = 'core.CustomUser'
 # EMAIL_HOST_USER = 'api'
 # EMAIL_HOST_PASSWORD = 'b9aa275ba9362a4ffedec161e097b808'
 
-
-
-
 # EMAIL_USE_TLS = True
-# EMAIL_USE_SSL = True
+# EMAIL_USE_SSL = False
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -169,6 +166,10 @@ EMAIL_HOST_USER = 'devdiariesapp@gmail.com'
 EMAIL_HOST_PASSWORD = 'zvvn qtfl qhbe sdgg'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+
+
+
 
 
 # EMAIL_HOST = 'smtp.gmail.com'
