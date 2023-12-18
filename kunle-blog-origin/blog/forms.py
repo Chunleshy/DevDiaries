@@ -1,9 +1,7 @@
 from django import forms
-
-# This form class defines the structure of the comment form for the blog application.
-
+# Defines a form structure for comments in the blog application.
 class CommentForm(forms.Form):
-    # Represents the structure of the comment form fields.
+     # CommentForm class defines two fields for the comment form.
     author = forms.CharField(
         max_length=60,
         widget=forms.TextInput(

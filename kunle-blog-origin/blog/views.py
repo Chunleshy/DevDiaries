@@ -3,11 +3,7 @@ from django.shortcuts import render
 from blog.models import Post, Comment
 from blog.forms import CommentForm
 
-# These imports are necessary for the functionality of the views.
-
-# Create your views here.
-# The views handle different functionalities related to the blog.
-
+# This section contains views for different functionalities related to the blog.
 
 def blog_index(request):
     # Retrieves all posts and orders them by creation date in descending order.
@@ -35,7 +31,6 @@ def blog_detail(request, pk):
                 post=post,
             )
             comment.save()
-
             return HttpResponseRedirect(request.path_info)
 
     # Retrieves comments related to the post.
@@ -44,7 +39,7 @@ def blog_detail(request, pk):
     context = {
         "post": post,
         "comments": comments,
-        "form": CommentForm(),
+        "form": CommentForm(),  # Passes an instance of the comment form to the context.
     }
 
     return render(request, "blog/detail.html", context)

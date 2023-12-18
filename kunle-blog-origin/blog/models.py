@@ -1,6 +1,6 @@
 from django.db import models
 
-# These are models representing the structure of the database for a blog application.
+# Defines the models for the blog application.
 
 class Category(models.Model):
     # Represents a category for blog posts.
